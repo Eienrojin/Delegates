@@ -33,6 +33,8 @@
         {
             Random random = new();
 
+            Buffer = 0;
+
             while (true)
             {
                 Console.Clear();
