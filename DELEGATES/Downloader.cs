@@ -1,24 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace DELEGATES
+{    
+    public delegate void DownldrHandler(string msg);
 
-namespace DELEGATES
-{
     internal class Downloader : IDowloader
     {
         public int InternetSpeed { get; private set; }
         public int Buffer { get; set; }
+        public DownldrHandler? handler;
+
+        public void RegisterDelegate(DownldrHandler dlgt)
+        {
+            handler = dlgt;
+        }
 
         public void Complete()
         {
-            throw new NotImplementedException();
+            handler?.Invoke("Download has done");
         }
 
         public void Error()
         {
-            throw new NotImplementedException();
+            handler?.Invoke("Internet speed is too slow");
         }
 
         /// <summary>
@@ -33,9 +35,30 @@ namespace DELEGATES
 
             while (true)
             {
-                this.InternetSpeed = 
+                Console.Clear();
+
+                if (Buffer >= _file.Size)
+                {
+                    Buffer = _file.Size;
+                    Complete();
+                    break;
+                }
+                else
+                {
+                    InternetSpeed = random.Next(0, 100);
+
+                    if (InternetSpeed < 5)
+                    {
+                        Error();
+                    }
+
+                    Display.Show(_file, this);
+
+                    Buffer += InternetSpeed;
+                }
+
+                Thread.Sleep(700);
             }
-            
         }
     }
 }

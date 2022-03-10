@@ -11,8 +11,13 @@ namespace DELEGATES
     /// </summary>
     internal class InternetFile
     {
+        public InternetFile(string name, int size)
+        {
+            Name=name;
+            Size=size;
+        }
+
         public string Name { get; set; }
         public int Size { get; set; }
-
     }
 }
