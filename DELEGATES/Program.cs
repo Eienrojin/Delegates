@@ -37,6 +37,7 @@
                         InternetFile internetFile = new("Big File", random.Next(200, 600));
 
                         downloader.RegisterDelegate(Print);
+                        display.RegisterDelegate(Print);
                         downloader.Start(internetFile);
                         break;
                     case 2: Environment.Exit(0);
